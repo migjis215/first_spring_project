@@ -52,7 +52,7 @@ public class ArticleController {
         // 1: retrieve data using id
         Article articleEntity = articleRepository.findById(id).orElse(null);
 
-        // 2: assign the data to model
+        // 2: assign the data to the model
         model.addAttribute("article", articleEntity);
 
         // 3: set the page to show
@@ -70,5 +70,18 @@ public class ArticleController {
 
         // 3: set the view page
         return "articles/index";
+    }
+
+    @GetMapping("/articles/{id}/edit")
+    public String edit(@PathVariable Long id, Model model) {
+        // get data to modify
+        Article articleEntity = articleRepository.findById(id).orElse(null);
+
+        // assign the data to the model
+        model.addAttribute("article", articleEntity);
+
+        // set the view page
+
+        return "articles/edit";
     }
 }

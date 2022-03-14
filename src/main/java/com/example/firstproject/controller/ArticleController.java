@@ -34,7 +34,7 @@ public class ArticleController {
 
         log.info(form.toString());
 
-        // 1. DTO to Entity
+        // 1. from DTO to Entity
         Article article = form.toEntity();
         log.info(article.toString());
 
@@ -83,5 +83,26 @@ public class ArticleController {
         // set the view page
 
         return "articles/edit";
+    }
+
+    @PostMapping("/articles/update")
+    public String update(ArticleForm form) {
+        log.info(form.toString());
+
+        // 1: convert DTO into Entity
+        Article articleEntity = form.toEntity();
+        log.info(articleEntity.toString());
+
+        // 2: store Entity to the DB
+        // 2-1: get the existing data from DB
+        Article target = articleRepository.findById(articleEntity.getId()).orElse(null);
+
+        // 2-2: modify the existing data values
+        if (target != null) {
+            articleRepository.save(articleEntity);
+        }
+
+        // 3: redirect to the result page
+        return "redirect:/articles/" + articleEntity.getId();
     }
 }

@@ -42,23 +42,10 @@
             }
         }).then(response => {
             const msg = (response.ok) ? "The comment has been added." : "Failed to add a comment.";
+            alert(msg);
             window.location.reload();
         });
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </script>
